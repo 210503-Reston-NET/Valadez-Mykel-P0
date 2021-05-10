@@ -7,7 +7,6 @@ namespace UI.Menus
     {
         public void Start()
         {
-            
 
             Console.WriteLine("Sign in or Create a new account: ");
             Console.WriteLine("[0] Sign In");
@@ -17,7 +16,7 @@ namespace UI.Menus
             switch(input)
             {
                 case "0": 
- 
+                    UserLogin();
                     break;
                 case "1": 
                     NewUserLogin();
@@ -76,13 +75,44 @@ namespace UI.Menus
                 try
                 {
                     Manager nUser = new Manager(lName, fName, email);
-                    nUser.Hello();
                 } 
-                catch 
+                catch {
+                    System.Console.WriteLine("oh no error creating a manager");
+                }
+            } else {
+                try
                 {
-                    System.Console.WriteLine("oh no error 1");
+                    Customer nUser = new Customer(lName, fName, email);
+                } catch {
+                    System.Console.WriteLine("oh no unable to create customer account");
                 }
             }
+        }
+
+        public void UserLogin()
+        {
+            bool success = false;
+            string email;
+            string password;
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Enter Your Email");
+                Console.WriteLine("");
+                Console.Write("Email: ");
+                email = Console.ReadLine();
+
+                Console.Clear();
+                Console.WriteLine("Enter Your Password");
+                Console.WriteLine("");
+                Console.Write("Password: ");
+                password = Console.ReadLine();
+
+                success = true;
+                
+            } while (!success);
+            // check the db for the user
         }
     }
 }

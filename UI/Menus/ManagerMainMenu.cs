@@ -22,7 +22,7 @@ namespace UI.Menus
                     OrderFinder();
                     break;
                 case "2":
-                    ManageStore();
+                    new StoreMenu().Start();
                     break;
                 default:
                     this.Start();
@@ -37,12 +37,7 @@ namespace UI.Menus
 
         public void OrderFinder()
         {
-
-        }
-
-        public void ManageStore()
-        {
-
+            System.Console.WriteLine("finding order");
         }
 
     }

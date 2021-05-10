@@ -74,7 +74,7 @@ namespace UI.Menus
             {
                 try
                 {
-                    Manager nUser = new Manager(lName, fName, email);
+                    // Manager nUser = new Manager(lName, fName, email);
                     new ManagerMainMenu().Start();
                 } 
                 catch {
@@ -83,7 +83,7 @@ namespace UI.Menus
             } else {
                 try
                 {
-                    Customer nUser = new Customer(lName, fName, email);
+                    // Customer nUser = new Customer(lName, fName, email);
                     new CustMainMenu().Start();
                 } catch {
                     System.Console.WriteLine("oh no unable to create customer account");

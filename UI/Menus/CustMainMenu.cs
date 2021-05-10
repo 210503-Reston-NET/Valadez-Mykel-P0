@@ -1,10 +1,11 @@
 using System;
+using Models;
 
 namespace UI.Menus
 {
     public class CustMainMenu : IMenu
     {
-        public void Start()
+        public void Start(Customer user)
         {
             Console.WriteLine("This is the store");
             Console.WriteLine("Select an option");
@@ -22,6 +23,11 @@ namespace UI.Menus
                 default: 
                     break;
             }
+        }
+
+        public void Start()
+        {
+            throw new NotImplementedException();
         }
     }
 }

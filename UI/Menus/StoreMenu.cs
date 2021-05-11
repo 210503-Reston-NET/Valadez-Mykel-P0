@@ -1,4 +1,5 @@
 using System;
+using BuisnessLocic;
 
 namespace UI.Menus
 {
@@ -28,7 +29,8 @@ namespace UI.Menus
         public void LocationSearch()
         {
             System.Console.WriteLine("gotta find that location");
-            // call location menu in 
+            // What if I call it and hold it on the buisness layer
+
         }
 
         public void AddLocation()

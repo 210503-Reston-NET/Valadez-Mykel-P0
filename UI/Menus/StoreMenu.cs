@@ -1,5 +1,6 @@
 using System;
-using BuisnessLocic;
+using BuisnessLogic;
+using UI;
 
 namespace UI.Menus
 {
@@ -28,8 +29,9 @@ namespace UI.Menus
 
         public void LocationSearch()
         {
-            System.Console.WriteLine("gotta find that location");
-            // What if I call it and hold it on the buisness layer
+            Console.WriteLine("Enter the Name of the Location: ");
+            string input = Console.ReadLine();
+            new LocationLogic().LocationHolderFunc(input);
 
         }
 

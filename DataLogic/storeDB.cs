@@ -30,7 +30,6 @@ namespace DataLogic
 
         public List<Entities.Location> GetAllLocations()
         {
-            System.Console.WriteLine(_context.Locations.ToList(););
             return _context.Locations.ToList();
         }
 

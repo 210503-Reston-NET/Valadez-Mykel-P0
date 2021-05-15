@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\DataLogic\DataLogic.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

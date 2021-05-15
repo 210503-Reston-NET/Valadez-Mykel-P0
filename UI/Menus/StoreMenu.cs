@@ -31,7 +31,7 @@ namespace UI.Menus
         {
             Console.WriteLine("Enter the Name of the Location: ");
             string input = Console.ReadLine();
-            new LocationLogic().LocationHolderFunc(input);
+            // new LocationLogic().LocationHolderFunc(input);
 
         }
 

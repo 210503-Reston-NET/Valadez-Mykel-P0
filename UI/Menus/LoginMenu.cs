@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models;
 using DataLogic.Entities;
+using DataLogic;
 
 
 namespace UI.Menus
@@ -132,7 +133,7 @@ namespace UI.Menus
                 try
                 {
                     // Manager nUser = new Manager(lName, fName, email);
-                    new ManagerMainMenu().Start();
+                    new ManagerMainMenu().Start(new storeDB(context));
                 } 
                 catch {
                     System.Console.WriteLine("oh no error creating a manager");

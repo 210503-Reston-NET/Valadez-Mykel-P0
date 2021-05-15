@@ -1,10 +1,11 @@
 using System;
+using BuisnessLogic;
 
 namespace UI.Menus
 {
     public class SelectedStoreMenu
     {
-        public void Start()
+        public void Start(LocationLogic LL)
         {
             Console.WriteLine("[0] View Inventory");
             Console.WriteLine("[1] Add Inventory");
@@ -14,17 +15,17 @@ namespace UI.Menus
             switch(input)
             {
                 case "0":
-                    ViewInventory();
+                    LL.ViewInventory();
                     break;
                 case "1": 
-                    AddInventory();
+                    LL.AddInventory();
                     break;
                 case "2": 
-                    ViewTransactions();
+                    LL.ViewTransactions();
                     break;
                 default:
                     Console.WriteLine("invalid input");
-                    this.Start();
+                    this.Start(LL);
                     break;
             }
         }

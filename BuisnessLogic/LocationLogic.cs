@@ -11,9 +11,19 @@ namespace BuisnessLogic
             // find the location and info
             System.Console.WriteLine(name);
         }
-        public void ViewIneventory(Store store)
+        public void ViewInventory()
         {
-            store.ProductsInStock();
+            
+        }
+
+        public void AddInventory()
+        {
+
+        }
+
+        public void ViewTransactions()
+        {
+
         }
  
     }

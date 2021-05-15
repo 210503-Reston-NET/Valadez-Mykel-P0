@@ -38,5 +38,9 @@ namespace DataLogic
         {
             return _context.Customers.FirstOrDefault(cust => cust.Id.Equals(customerId));
         }
+        public DataLogic.Entities.Customer FindCustomer(string customerName)
+        {
+            return _context.Customers.FirstOrDefault(cust => cust.Name.Equals(customerName));
+        }
     }
 }

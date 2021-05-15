@@ -112,7 +112,7 @@ namespace UI.Menus
             .AddJsonFile("appsettings.json")
             .Build();
             
-            string connectionString = configuration.GetConnectionString("RestaurantDB");
+            string connectionString = configuration.GetConnectionString("StoreDB");
 
             DbContextOptions<StoreDBContext> options = new DbContextOptionsBuilder<StoreDBContext>()
             .UseSqlServer(connectionString)

@@ -1,9 +1,14 @@
 using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Models;
+using DataLogic.Entities;
+
 
 namespace UI.Menus
 {
-    public class LoginMenu : IMenu
+    public class LoginMenu
     {
         public void Start()
         {
@@ -23,6 +28,7 @@ namespace UI.Menus
                     break;
                 default: 
                     Console.WriteLine("Invalid Input");
+                    this.Start();
                     break;
             }
 
@@ -32,12 +38,19 @@ namespace UI.Menus
         public void NewUserLogin()
         {
             bool success = false;
-            bool admin = false;
+            
             string email;
             string password;
+            string name;
 
             do
             {
+                Console.Clear();
+                Console.WriteLine("Enter Your Name");
+                Console.WriteLine("");
+
+                Console.Write("Name: ");
+                name = Console.ReadLine();
 
                 Console.Clear();
                 Console.WriteLine("Enter Your Email");
@@ -53,42 +66,13 @@ namespace UI.Menus
                 Console.Write("Password: ");
                 password = Console.ReadLine();
 
-                if(email == "valadezmykel@gmail.com" && password == "fishTaco")
-                {
-                    admin = true;
-
-                }
                 success = true;
 
+                // add validation
             } while (!success);
 
-            Console.WriteLine("Enter Your First Name");
-            Console.Write("first name: ");
-            string fName = Console.ReadLine();
+            this.CheckAdminAndPass(email, password);
 
-            Console.WriteLine("Enter Your Last Name");
-            Console.Write("last name: ");
-            string lName = Console.ReadLine();
-
-            if(admin)
-            {
-                try
-                {
-                    // Manager nUser = new Manager(lName, fName, email);
-                    new ManagerMainMenu().Start();
-                } 
-                catch {
-                    System.Console.WriteLine("oh no error creating a manager");
-                }
-            } else {
-                try
-                {
-                    // Customer nUser = new Customer(lName, fName, email);
-                    new CustMainMenu().Start();
-                } catch {
-                    System.Console.WriteLine("oh no unable to create customer account");
-                }
-            }
         }
 
         public void UserLogin()
@@ -117,7 +101,51 @@ namespace UI.Menus
             // todo
             // check the db for the user
 
+            this.CheckAdminAndPass(email, password);
             
+        }
+
+        public void CheckAdminAndPass(string email, string password)
+        {
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+            
+            string connectionString = configuration.GetConnectionString("RestaurantDB");
+
+            DbContextOptions<StoreDBContext> options = new DbContextOptionsBuilder<StoreDBContext>()
+            .UseSqlServer(connectionString)
+            .Options;
+
+            var context = new StoreDBContext(options);
+
+            bool admin = false;
+            if(email == "dirtEmpire@gmail.com" && password == "fishTaco")
+            {
+                admin = true;
+
+            }
+
+            if(admin)
+            {
+                try
+                {
+                    // Manager nUser = new Manager(lName, fName, email);
+                    new ManagerMainMenu().Start();
+                } 
+                catch {
+                    System.Console.WriteLine("oh no error creating a manager");
+                }
+            } else {
+                try
+                {
+                    // Customer nUser = new Customer(lName, fName, email);
+                    new CustMainMenu().Start();
+                } catch {
+                    System.Console.WriteLine("oh no unable to create customer account");
+                }
+            }
         }
     }
 }

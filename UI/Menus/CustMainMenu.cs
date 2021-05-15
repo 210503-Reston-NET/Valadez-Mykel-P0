@@ -3,7 +3,7 @@ using Models;
 
 namespace UI.Menus
 {
-    public class CustMainMenu : IMenu
+    public class CustMainMenu
     {
         public void Start()
         {

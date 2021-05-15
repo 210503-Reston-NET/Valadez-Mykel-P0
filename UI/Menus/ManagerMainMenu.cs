@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Menus
 {
-    public class ManagerMainMenu : IMenu
+    public class ManagerMainMenu
     {
         public void Start()
         {

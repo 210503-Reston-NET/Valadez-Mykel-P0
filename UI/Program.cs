@@ -1,4 +1,5 @@
 ﻿using System;
+using UI.Menus;
 
 namespace UI
 {
@@ -6,7 +7,7 @@ namespace UI
     {
         static void Main(string[] args)
         {
-            MenuSupplier.CreateMenu("login").Start();
+            new LoginMenu().Start();
             // add a new customer
             // search customers by name
             // display details of an order

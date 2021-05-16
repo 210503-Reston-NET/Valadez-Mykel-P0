@@ -9,6 +9,7 @@ namespace DataLogic.Entities
     {
         public int OrderDetailsId { get; set; }
         public int Quantity { get; set; }
+        public bool? Delivered { get; set; }
         public int ProductId { get; set; }
         public int OrderId { get; set; }
 

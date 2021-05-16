@@ -40,6 +40,11 @@ namespace DataLogic.Entities
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Location>(entity =>
@@ -80,32 +85,32 @@ namespace DataLogic.Entities
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders__Customer__778AC167");
+                    .HasConstraintName("FK__Orders__Customer__19DFD96B");
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.LocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Orders__Location__76969D2E");
+                    .HasConstraintName("FK__Orders__Location__18EBB532");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasKey(e => e.OrderDetailsId)
-                    .HasName("PK__OrderDet__9DD74DBD616F9C87");
+                    .HasName("PK__OrderDet__9DD74DBD6851E985");
+
+                entity.Property(e => e.Delivered).HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderDeta__Order__01142BA1");
+                    .HasConstraintName("FK__OrderDeta__Order__22751F6C");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderDeta__Produ__00200768");
+                    .HasConstraintName("FK__OrderDeta__Produ__2180FB33");
             });
 
             modelBuilder.Entity<Product>(entity =>

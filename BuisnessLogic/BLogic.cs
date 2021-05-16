@@ -17,6 +17,10 @@ namespace BuisnessLogic
             // find the location and info
             System.Console.WriteLine(name);
         }
+
+        public int CheckUserCredentials(string email, string password){
+            return _DB.GetUserID(email, password);
+        }
         public void ViewInventory()
         {
             

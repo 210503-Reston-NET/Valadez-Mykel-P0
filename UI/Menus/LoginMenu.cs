@@ -14,30 +14,32 @@ namespace UI.Menus
     {
         public void Start()
         {
+            BLogic BL = ConnectToDBAndBL();
 
             Console.WriteLine("Sign in or Create a new account: ");
             Console.WriteLine("[0] Sign In");
             Console.WriteLine("[1] Create New Account");
-            string input = Console.ReadLine();
+            
 
-            switch(input)
-            {
-                case "0": 
-                    UserLogin();
-                    break;
-                case "1": 
-                    NewUserLogin();
-                    break;
-                default: 
-                    Console.WriteLine("Invalid Input");
-                    this.Start();
-                    break;
+            while(true){
+                string input = Console.ReadLine();
+                switch(input)
+                {
+                    case "0": 
+                        UserLogin(BL);
+                        break;
+                    case "1": 
+                        NewUserLogin(BL);
+                        break;
+                    default: 
+                        Console.WriteLine("Invalid Input");
+                        break;
+                }
             }
-
 
         }
 
-        public void NewUserLogin()
+        public void NewUserLogin(BLogic BL)
         {
             bool success = false;
             
@@ -77,7 +79,7 @@ namespace UI.Menus
 
         }
 
-        public void UserLogin()
+        public void UserLogin(BLogic BL)
         {
             bool success = false;
             string email;
@@ -97,6 +99,7 @@ namespace UI.Menus
                 Console.Write("Password: ");
                 password = Console.ReadLine();
 
+                BL.CheckUserCredentials(email, password);
                 success = true;
 
             } while (!success);
@@ -107,8 +110,7 @@ namespace UI.Menus
             
         }
 
-        public void CheckAdminAndPass(string email, string password)
-        {
+        public BLogic ConnectToDBAndBL(){
             var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
@@ -120,7 +122,12 @@ namespace UI.Menus
             .UseSqlServer(connectionString)
             .Options;
 
-            var context = new StoreDBContext(options);
+            return new BLogic( new storeDB(new StoreDBContext(options)));
+        }
+
+        public void CheckAdminAndPass(string email, string password)
+        {
+
 
             bool admin = false;
             if(email == "dirtEmpire@gmail.com" && password == "fishTaco")
@@ -134,7 +141,7 @@ namespace UI.Menus
                 try
                 {
                     // Manager nUser = new Manager(lName, fName, email);
-                    new ManagerMainMenu().Start(new BLogic(new storeDB(context)));
+                    new ManagerMainMenu().Start(BL);
                 } 
                 catch {
                     System.Console.WriteLine("oh no error creating a manager");
@@ -143,7 +150,7 @@ namespace UI.Menus
                 try
                 {
                     // Customer nUser = new Customer(lName, fName, email);
-                    new CustMainMenu().Start(new BLogic(new storeDB(context)));
+                    new CustMainMenu().Start(BL);
                 } catch {
                     System.Console.WriteLine("oh no unable to create customer account");
                 }

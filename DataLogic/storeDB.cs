@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -55,11 +56,27 @@ namespace DataLogic
         }
 
         public void SellItems(int productId, int requestedQuantity){
-            int max = _context.LocationProductInventories
-            .Where(prod => prod.ProductId.Equals(productId))
-            .Max(prod => prod.Quantity);
+            int leftToBeSold = 0;
 
-            if(max < quantity)
+            do{
+                List<LocationProductInventory> invWithProduct = _context.LocationProductInventories
+                .Where(inv => inv.ProductId.Equals(productId)).ToList();
+
+                int max = invWithProduct.Max(inv => inv.Quantity);
+
+                if(max < requestedQuantity){
+                    leftToBeSold = requestedQuantity - max;
+                    requestedQuantity = max;
+                }
+
+                invWithProduct
+                .Where(inv => inv.Quantity.Equals(max))
+                .ToList()
+                .ForEach(inv => inv.Quantity -= requestedQuantity);
+
+            } while (leftToBeSold > 0);
+
+            _context.SaveChanges();
             
         }
     }

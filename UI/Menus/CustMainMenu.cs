@@ -16,23 +16,30 @@ namespace UI.Menus
             Console.WriteLine("[0] Order Online");
             Console.WriteLine("[1] Find a Store");
             Console.WriteLine("[2] Check on yer Orders");
+            Console.WriteLine("[3] Leave Store");
 
             string input = Console.ReadLine();
 
-            switch (input)
-            {
-                case "0":
-                    OrderOnline(BL);
-                    break;
-                case "1":
-                    Nearestlocation(BL);
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                default: 
-                    break;
+            bool run = true;
+            while(run){
+                switch (input)
+                {
+                    case "0":
+                        OrderOnline(BL);
+                        break;
+                    case "1":
+                        Nearestlocation(BL);
+                        break;
+                    case "2":
+                        CheckOrders();
+                        break;
+                    case "3":
+                        run = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Input"); 
+                        break;
+                }
             }
         }
 
@@ -137,6 +144,10 @@ namespace UI.Menus
             input = Console.ReadLine();
             }
             Start(BL);
+        }
+
+        public void CheckOrders(){
+
         }
     }
 }

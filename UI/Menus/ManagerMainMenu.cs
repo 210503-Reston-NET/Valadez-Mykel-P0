@@ -7,9 +7,9 @@ namespace UI.Menus
 {
     public class ManagerMainMenu
     {
-        public void Start(storeDB DB)
+        public void Start(BLogic BL)
         {
-            var bll = new BuisnessLogic.LocationLogic(DB);
+            
 
             Console.WriteLine("[0] Find a Customer");
             Console.WriteLine("[1] Find an Order");
@@ -30,10 +30,10 @@ namespace UI.Menus
                     new StoreMenu().Start();
                     break;
                 case "3":
-                    bll.GetAllStores();
+                    BL.GetAllStores();
                     break;
                 default:
-                    this.Start(DB);
+                    this.Start(BL);
                     break;
             }
         }

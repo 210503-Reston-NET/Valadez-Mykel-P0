@@ -9,6 +9,7 @@ namespace UI.Menus
     {
         public void Start(BLogic BL)
         {
+            Console.Clear();
             Console.WriteLine("Welcome to JoeyBob's Dirt Super Supply");
             Console.WriteLine("What chew wan ?");
             Console.WriteLine();
@@ -24,6 +25,7 @@ namespace UI.Menus
                     OrderOnline(BL);
                     break;
                 case "1":
+                    Nearestlocation(BL);
                     break;
                 case "2":
                     break;
@@ -36,6 +38,9 @@ namespace UI.Menus
 
         public void OrderOnline(BLogic BL)
         {
+            bool viewing = true;
+            
+            Console.Clear();
             Console.WriteLine("Welcome to JoeyBob's Dirt Super Supply");
             Console.WriteLine("What chew wan ?");
             Console.WriteLine();
@@ -43,24 +48,33 @@ namespace UI.Menus
             Console.WriteLine("[1] Rocks");
             Console.WriteLine("[2] Dirt with some Rocks in it");
             Console.WriteLine("[3] Rocks with some dirt in it");
+            Console.WriteLine("[4] Back");
 
+            while(viewing){
             string input = Console.ReadLine();
 
             switch (input)
             {
                 case "0":
                     Purchase(BL, 1);
-
                     break;
                 case "1":
+                    Purchase(BL, 2);
                     break;
                 case "2":
+                    Purchase(BL, 3);
                     break;
                 case "3":
+                    Purchase(BL, 4);
                     break;
-                default: 
+                case "4":
+                    viewing = false;
+                    Start(BL);
                     break;
-            }
+                default:
+                    Console.WriteLine("Invalid Input"); 
+                    break;
+            }}
         }
 
         public void Purchase(BLogic BL, int productId)
@@ -96,17 +110,33 @@ namespace UI.Menus
                             BL.MakePurchase(productId, orderAmount);
                             Console.WriteLine("Your Order is Complete");
                         } catch{
-
+                            Console.WriteLine("Order Failed");
                         }
+                        break;
+                    case "1":
+                        Console.WriteLine("Order Canceled");
+                        OrderOnline(BL);
+                        break;
+                    default: 
+                        Console.WriteLine("Invalid Input");
+                        break;
+
                 }
 
             }
 
         }
 
-        public void Nearestlocation()
+        public void Nearestlocation(BLogic BL)
         {
-
+            // will come back later if time
+            BL.GetAllStores();
+            Console.WriteLine("[0] Go Back");
+            string input = "";
+            while(input != "0"){
+            input = Console.ReadLine();
+            }
+            Start(BL);
         }
     }
 }

@@ -134,7 +134,7 @@ namespace UI.Menus
                 try
                 {
                     // Manager nUser = new Manager(lName, fName, email);
-                    new ManagerMainMenu().Start(new BLogic(new storeDB(context));
+                    new ManagerMainMenu().Start(new BLogic(new storeDB(context)));
                 } 
                 catch {
                     System.Console.WriteLine("oh no error creating a manager");
@@ -143,7 +143,7 @@ namespace UI.Menus
                 try
                 {
                     // Customer nUser = new Customer(lName, fName, email);
-                    new CustMainMenu().Start(new BLogic(new storeDB(context));
+                    new CustMainMenu().Start(new BLogic(new storeDB(context)));
                 } catch {
                     System.Console.WriteLine("oh no unable to create customer account");
                 }

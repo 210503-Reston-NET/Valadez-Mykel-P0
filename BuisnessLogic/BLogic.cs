@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Models;
 using DataLogic;
+using DataLogic.Entities;
 
 namespace BuisnessLogic
 {
@@ -21,6 +22,23 @@ namespace BuisnessLogic
 
         public void CheckUserCredentials(string email, string password){
             _CustID = _DB.GetUserID(email, password);
+        }
+
+        public void FindUser(string name){
+            DataLogic.Entities.Customer cust = _DB.FindCustomer(name);
+            Console.WriteLine("Id: "+ cust.Id);
+            Console.WriteLine("Name: "+cust.Name);
+            Console.WriteLine("Email: "+cust.Email);
+        }
+        public void FindUser(int customerId){
+            DataLogic.Entities.Customer cust = _DB.FindCustomer(customerId);
+            Console.WriteLine("Id: "+ cust.Id);
+            Console.WriteLine("Name: "+cust.Name);
+            Console.WriteLine("Email: "+cust.Email);
+        }
+
+        public void CheckOrder(int orderId){
+            _DB.ViewOrder(orderId);
         }
 
         public void AddNewUser(string name, string email, string password){

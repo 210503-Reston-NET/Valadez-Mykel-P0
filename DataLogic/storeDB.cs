@@ -32,6 +32,32 @@ namespace DataLogic
 
         }
 
+        public void ViewOrder(int orderId){
+            _context.Orders.Join(_context.OrderDetails,
+                ord => ord.OrderId,
+                dets => dets.OrderId,
+                (ord, dets) => 
+                new {
+                    OrderId = ord.OrderId,
+                    CustomerId = ord.CustomerId,
+                    LocationId = ord.LocationId,
+                    ProductId = dets.ProductId,
+                    Quantity = dets.Quantity,
+                    Delivered = dets.Delivered
+                    }
+                ).Where(ord => ord.OrderId.Equals(orderId))
+                .ToList()
+                .ForEach(row => {
+                    Console.WriteLine("Order Id: "+row.OrderId);
+                    Console.WriteLine("Customer Id: "+row.CustomerId);
+                    Console.WriteLine("Location Id: "+row.LocationId);
+                    Console.WriteLine("ProductId: "+row.ProductId);
+                    Console.WriteLine("Quantity Ordered: "+row.Quantity);
+                    Console.WriteLine("Delivered Yet?: "+row.Delivered);
+                });
+
+        }
+
         public void AddLocation(string name, string address)
         {
             _context.Locations.Add(
@@ -83,6 +109,7 @@ namespace DataLogic
                 (ord, dets) => 
                 new {
                     OrderId = ord.OrderId,
+                    CustomerId = ord.CustomerId,
                     LocationId = ord.LocationId,
                     ProductId = dets.ProductId,
                     Quantity = dets.Quantity,
@@ -91,6 +118,8 @@ namespace DataLogic
                 ).ToList()
                 .ForEach(row => {
                     Console.WriteLine("Order Id: "+row.OrderId);
+                    Console.WriteLine("Customer Id: "+row.CustomerId);
+
                     Console.WriteLine("Location Id: "+row.LocationId);
                     Console.WriteLine("ProductId: "+row.ProductId);
                     Console.WriteLine("Quantity Ordered: "+row.Quantity);

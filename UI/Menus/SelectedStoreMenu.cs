@@ -21,7 +21,7 @@ namespace UI.Menus
                     BL.AddInventory();
                     break;
                 case "2": 
-                    BL.ViewTransactions();
+                    
                     break;
                 default:
                     Console.WriteLine("invalid input");

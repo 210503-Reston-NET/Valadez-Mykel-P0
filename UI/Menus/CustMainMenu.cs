@@ -148,7 +148,17 @@ namespace UI.Menus
         }
 
         public void CheckOrders(BLogic BL){
-            BL.ViewTransactions();
+            Console.Clear();
+            BL.ViewTransactionsByCustomer();
+
+            Console.WriteLine("");
+            Console.WriteLine("[0] Go Back");
+            while(true){
+                string input = Console.ReadLine();
+                if(input == "0"){
+                    Start(BL);
+                }else Console.WriteLine("Invalid Input");
+            }
         }
     }
 }

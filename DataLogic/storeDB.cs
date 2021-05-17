@@ -70,6 +70,9 @@ namespace DataLogic
         }
 
         public void GetCustomerOrderAndDetails(int customerId){
+            int cs = _context.Orders.Count(ord => ord.CustomerId.Equals(customerId));
+            Console.WriteLine(cs);
+
             _context.Orders.Where(ord => ord.CustomerId.Equals(customerId))
             .ToList()
             .ForEach(ord => {
@@ -90,8 +93,8 @@ namespace DataLogic
                     Console.WriteLine("Order Id: "+row.OrderId);
                     Console.WriteLine("Location Id: "+row.LocationId);
                     Console.WriteLine("ProductId: "+row.ProductId);
-                    Console.WriteLine("");
-                    Console.WriteLine("");
+                    Console.WriteLine("Quantity Ordered: "+row.Quantity);
+                    Console.WriteLine("Delivered Yet?: "+row.Delivered);
                 });
 
 

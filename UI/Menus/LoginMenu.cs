@@ -16,6 +16,10 @@ namespace UI.Menus
         {
             BLogic BL = ConnectToDBAndBL();
 
+            AskForLogin(BL);
+        }
+
+        public void AskForLogin(BLogic BL){
             Console.WriteLine("Sign in or Create a new account: ");
             Console.WriteLine("[0] Sign In");
             Console.WriteLine("[1] Create New Account");
@@ -36,7 +40,6 @@ namespace UI.Menus
                         break;
                 }
             }
-
         }
 
         public void NewUserLogin(BLogic BL)
@@ -75,7 +78,7 @@ namespace UI.Menus
                 // add validation
             } while (!success);
 
-            this.CheckAdminAndPass(email, password);
+            this.CheckAdminAndPass(email, password, BL);
 
         }
 
@@ -84,29 +87,33 @@ namespace UI.Menus
             bool success = false;
             string email;
             string password;
+            Console.Clear();
+        
+            Console.WriteLine("Enter Your Email");
+            Console.WriteLine("");
+            Console.Write("Email: ");
+            email = Console.ReadLine();
+            Console.WriteLine("");
 
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("Enter Your Email");
-                Console.WriteLine("");
-                Console.Write("Email: ");
-                email = Console.ReadLine();
+            Console.WriteLine("Enter Your Password");
+            Console.WriteLine("");
+            Console.Write("Password: ");
+            password = Console.ReadLine();
+            Console.WriteLine("");
 
-                Console.Clear();
-                Console.WriteLine("Enter Your Password");
-                Console.WriteLine("");
-                Console.Write("Password: ");
-                password = Console.ReadLine();
-
-                BL.CheckUserCredentials(email, password);
+            try{
+                BL._CustID = BL.CheckUserCredentials(email, password);
                 success = true;
+            } catch {
+                Console.WriteLine("Unable to Login");
+                Console.WriteLine("");
+            }
 
-            } while (!success);
-            // todo
-            // check the db for the user
-
-            this.CheckAdminAndPass(email, password);
+            if(success){
+                CheckAdminAndPass(email, password, BL);
+            } else{
+                AskForLogin(BL);
+            }
             
         }
 
@@ -125,7 +132,7 @@ namespace UI.Menus
             return new BLogic( new storeDB(new StoreDBContext(options)));
         }
 
-        public void CheckAdminAndPass(string email, string password)
+        public void CheckAdminAndPass(string email, string password, BLogic BL)
         {
 
 

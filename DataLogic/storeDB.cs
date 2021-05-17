@@ -15,8 +15,7 @@ namespace DataLogic
         }
 
         public int GetUserID(string email, string password){
-            // _context.Customers.FirstOrDefault(cust => cust.Email.Equals(email) && cust.Password.Equals(password))
-            return 2;
+            return _context.Customers.FirstOrDefault(cust => cust.Email.Equals(email) && cust.Password.Equals(password)).Id;
         }
         public void ViewInventory()
         {

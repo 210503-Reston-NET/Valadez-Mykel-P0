@@ -34,7 +34,7 @@ namespace UI.Menus
                         CheckOrders();
                         break;
                     case "3":
-                        run = false;
+                        System.Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Invalid Input"); 

@@ -8,6 +8,7 @@ namespace BuisnessLogic
     public class BLogic
     {
         private storeDB _DB;
+        public int _CustID;
         public BLogic(storeDB DB)
         {
             _DB = DB;

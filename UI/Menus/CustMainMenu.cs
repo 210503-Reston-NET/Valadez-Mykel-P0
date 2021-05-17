@@ -116,6 +116,7 @@ namespace UI.Menus
                         try{
                             BL.MakePurchase(productId, orderAmount);
                             Console.WriteLine("Your Order is Complete");
+                            OrderOnline(BL);
                         } catch{
                             Console.WriteLine("Order Failed");
                         }

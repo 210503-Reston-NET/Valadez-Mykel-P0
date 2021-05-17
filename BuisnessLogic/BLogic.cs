@@ -8,7 +8,7 @@ namespace BuisnessLogic
     public class BLogic
     {
         private storeDB _DB;
-        public int _CustID;
+        private int _CustID;
         public BLogic(storeDB DB)
         {
             _DB = DB;
@@ -19,8 +19,13 @@ namespace BuisnessLogic
             System.Console.WriteLine(name);
         }
 
-        public int CheckUserCredentials(string email, string password){
-            return _DB.GetUserID(email, password);
+        public void CheckUserCredentials(string email, string password){
+            _CustID = _DB.GetUserID(email, password);
+        }
+
+        public void AddNewUser(string name, string email, string password){
+            _CustID = _DB.AddUser(name, email, password);
+            if(!(_CustID > 0)) throw new Exception("Unable to verify user creation");
         }
         public void ViewInventory()
         {

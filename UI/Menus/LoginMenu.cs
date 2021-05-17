@@ -43,42 +43,41 @@ namespace UI.Menus
         }
 
         public void NewUserLogin(BLogic BL)
-        {
-            bool success = false;
-            
+        {            
             string email;
             string password;
             string name;
 
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("Enter Your Name");
+            Console.Clear();
+            Console.WriteLine("Enter Your Name");
+            Console.WriteLine("");
+
+            Console.Write("Name: ");
+            name = Console.ReadLine();
+
+            Console.Clear();
+            Console.WriteLine("Enter Your Email");
+            Console.WriteLine("");
+
+            Console.Write("Email: ");
+            email = Console.ReadLine();
+
+            Console.Clear();
+            Console.WriteLine("Create a Password");
+            Console.WriteLine("");
+
+            Console.Write("Password: ");
+            password = Console.ReadLine();
+
+            try{
+                BL.AddNewUser(name, email, password);
+
+            } catch (Exception e){
+                Console.WriteLine(e.Message);
                 Console.WriteLine("");
-
-                Console.Write("Name: ");
-                name = Console.ReadLine();
-
-                Console.Clear();
-                Console.WriteLine("Enter Your Email");
-                Console.WriteLine("");
-
-                Console.Write("Email: ");
-                email = Console.ReadLine();
-
-                Console.Clear();
-                Console.WriteLine("Create a Password");
-                Console.WriteLine("");
-
-                Console.Write("Password: ");
-                password = Console.ReadLine();
-
-                success = true;
-
-                // add validation
-            } while (!success);
-
-            this.CheckAdminAndPass(email, password, BL);
+                AskForLogin(BL);
+            }
+            CheckAdminAndPass(email, password, BL);
 
         }
 
@@ -102,7 +101,7 @@ namespace UI.Menus
             Console.WriteLine("");
 
             try{
-                BL._CustID = BL.CheckUserCredentials(email, password);
+                BL.CheckUserCredentials(email, password);
                 success = true;
             } catch {
                 Console.WriteLine("Unable to Login");
@@ -147,7 +146,6 @@ namespace UI.Menus
             {
                 try
                 {
-                    // Manager nUser = new Manager(lName, fName, email);
                     new ManagerMainMenu().Start(BL);
                 } 
                 catch {
@@ -156,7 +154,6 @@ namespace UI.Menus
             } else {
                 try
                 {
-                    // Customer nUser = new Customer(lName, fName, email);
                     new CustMainMenu().Start(BL);
                 } catch {
                     System.Console.WriteLine("oh no unable to create customer account");

@@ -60,7 +60,7 @@ namespace BuisnessLogic
 
         public void MakePurchase(int productId, int orderAmount)
         {
-            _DB.SellItems(productId, orderAmount);
+            _DB.SellItems(productId, orderAmount, _CustID);
         }
  
     }

@@ -16,7 +16,7 @@ namespace UI.Menus
             Console.WriteLine("[0] Order Online");
             Console.WriteLine("[1] Find a Store");
             Console.WriteLine("[2] Check on yer Orders");
-            Console.WriteLine("[3] Leave Store");
+            Console.WriteLine("[3] Log Out");
 
             string input = Console.ReadLine();
 
@@ -34,7 +34,7 @@ namespace UI.Menus
                         CheckOrders();
                         break;
                     case "3":
-                        System.Environment.Exit(0);
+                        new LoginMenu().Start();
                         break;
                     default:
                         Console.WriteLine("Invalid Input"); 

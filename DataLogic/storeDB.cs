@@ -69,8 +69,9 @@ namespace DataLogic
             return _context.Products.FirstOrDefault(prod => prod.ProductId.Equals(productId));
         }
 
-        public void SellItems(int productId, int requestedQuantity){
+        public void SellItems(int productId, int requestedQuantity, int customerId){
             int leftToBeSold = 0;
+            int paritalRequestedQuantity = 0;
 
             do{
                 List<LocationProductInventory> invWithProduct = _context.LocationProductInventories
@@ -80,18 +81,37 @@ namespace DataLogic
 
                 if(max < requestedQuantity){
                     leftToBeSold = requestedQuantity - max;
-                    requestedQuantity = max;
+                    paritalRequestedQuantity = max;
                 }
 
-                invWithProduct
-                .Where(inv => inv.Quantity.Equals(max))
-                .ToList()
-                .ForEach(inv => inv.Quantity -= requestedQuantity);
+                LocationProductInventory invent = invWithProduct.First(inv => inv.Quantity.Equals(max)); 
+                invent.Quantity -= paritalRequestedQuantity;
+
+                CreateOrder(productId, requestedQuantity, customerId, invent.LocationId);
 
             } while (leftToBeSold > 0);
 
             _context.SaveChanges();
+            _context.ChangeTracker.Clear();
             
+        }
+
+        public void CreateOrder(int productId, int requestedQuantity, int customerId, int locationId){
+            _context.Orders.Add(new Entities.Order{
+                LocationId = locationId,
+                CustomerId = customerId
+            });
+
+            int orderId = _context.Orders.Max(ord => ord.OrderId);
+
+            _context.OrderDetails.Add(new Entities.OrderDetail{
+                OrderId = orderId,
+                ProductId = productId,
+                Quantity = requestedQuantity,
+            });
+
+            _context.SaveChanges();
+
         }
     }
 }

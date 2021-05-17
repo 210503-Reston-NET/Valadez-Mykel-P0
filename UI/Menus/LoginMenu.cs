@@ -20,9 +20,11 @@ namespace UI.Menus
         }
 
         public void AskForLogin(BLogic BL){
+            Console.Clear();
             Console.WriteLine("Sign in or Create a new account: ");
             Console.WriteLine("[0] Sign In");
             Console.WriteLine("[1] Create New Account");
+            Console.WriteLine("[2] Exit");
             
 
             while(true){
@@ -34,6 +36,10 @@ namespace UI.Menus
                         break;
                     case "1": 
                         NewUserLogin(BL);
+                        break;
+                    case "2": 
+                        Console.Clear();
+                        System.Environment.Exit(0);
                         break;
                     default: 
                         Console.WriteLine("Invalid Input");

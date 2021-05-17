@@ -31,7 +31,7 @@ namespace UI.Menus
                         Nearestlocation(BL);
                         break;
                     case "2":
-                        CheckOrders();
+                        CheckOrders(BL);
                         break;
                     case "3":
                         new LoginMenu().Start();
@@ -147,8 +147,8 @@ namespace UI.Menus
             Start(BL);
         }
 
-        public void CheckOrders(){
-            
+        public void CheckOrders(BLogic BL){
+            BL.ViewTransactions();
         }
     }
 }

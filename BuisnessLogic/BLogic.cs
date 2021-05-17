@@ -37,9 +37,9 @@ namespace BuisnessLogic
 
         }
 
-        public void ViewTransactions()
+        public void ViewTransactionsByCustomer()
         {
-
+            _DB.GetCustomerOrderAndDetails(_CustID);
         }
 
         public void GetAllStores()

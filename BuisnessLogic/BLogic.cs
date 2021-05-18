@@ -56,9 +56,14 @@ namespace BuisnessLogic
             _DB.ViewInventory(_StoreID);
         }
 
-        public void AddInventory()
+        public void AddInventory(int productId, int quantity)
         {
+            _DB.AddInventory(productId, quantity, _StoreID);
+            ViewInventory();
+        }
 
+        public void AddLocation(string name, string address){
+            _DB.AddLocation(name, address);
         }
 
         public void ViewTransactionsByCustomer()

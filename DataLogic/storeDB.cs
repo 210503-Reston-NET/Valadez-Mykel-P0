@@ -39,7 +39,7 @@ namespace DataLogic
                     Name = loc.Name,
                     LocationId = loc.Id,
                     Address = loc.Address,
-                    ProductId = lpi.Product,
+                    ProductId = lpi.Product.Name,
                     Quantity = lpi.Quantity
                 }
             ).Where(inv => inv.LocationId.Equals(locationId))
@@ -52,8 +52,10 @@ namespace DataLogic
                     Console.WriteLine("");
                 }
                 Console.WriteLine("Product : "+inv.ProductId);
-                Console.WriteLine("Quantity: "+inv.Name);
+                Console.WriteLine("Quantity: "+inv.Quantity);
                 Console.WriteLine();
+
+                counter = 2;
             });
         }
 
@@ -96,6 +98,24 @@ namespace DataLogic
 
         public Location FIndLocation(string name){
             return _context.Locations.First(loc => loc.Name.Equals(name));
+        }
+
+        public void AddInventory(int productId, int quantity, int locationId){
+            IQueryable<Entities.LocationProductInventory> currentStock = _context.LocationProductInventories
+            .Where(inv => inv.ProductId.Equals(productId) && inv.LocationId.Equals(locationId));
+            
+            if(currentStock.Count() == 0){
+
+                _context.LocationProductInventories.Add(new Entities.LocationProductInventory{
+                    LocationId = locationId,
+                    ProductId = productId,
+                    Quantity = quantity
+                });
+            }else{
+                currentStock.ToList()[0].Quantity += quantity;
+            }
+
+            _context.SaveChanges();
         }
 
         public List<Entities.Location> GetAllLocations()

@@ -20,7 +20,7 @@ namespace UI.Menus
                     LocationSearch(BL);
                     break;
                 case "1": 
-                    AddLocation();
+                    AddLocation(BL);
                     break;
                 case "2": 
                     new ManagerMainMenu().Start(BL);
@@ -51,10 +51,29 @@ namespace UI.Menus
 
         }
 
-        public void AddLocation()
+        public void AddLocation(BLogic BL)
         {
             Console.WriteLine("Enter the Name of the New Location: ");
             string locationName = Console.ReadLine();
+
+            Console.WriteLine("");
+            Console.WriteLine("Enter the Address of the New Location: ");
+            string locationAddress = Console.ReadLine();
+
+            try{
+                BL.AddLocation(locationName, locationAddress);
+                Console.WriteLine("New Store Added");
+            }catch(Exception e){
+                if(e != null) Console.WriteLine(e.Message);
+                Console.WriteLine("Unable to Add New Location");
+
+            }
+
+            Console.WriteLine("Press any Key to Continue");
+
+            string input = Console.ReadLine();
+            Start(BL);
+
             // add it to the db then open it in new location menu
         }
     }

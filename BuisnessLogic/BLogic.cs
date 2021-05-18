@@ -10,6 +10,7 @@ namespace BuisnessLogic
     {
         private storeDB _DB;
         private int _CustID;
+        private int _StoreID;
         public BLogic(storeDB DB)
         {
             _DB = DB;
@@ -45,9 +46,14 @@ namespace BuisnessLogic
             _CustID = _DB.AddUser(name, email, password);
             if(!(_CustID > 0)) throw new Exception("Unable to verify user creation");
         }
+
+        public void FindLocationByName(string name){
+            _StoreID = _DB.FIndLocation(name).Id;
+        }
+
         public void ViewInventory()
         {
-            
+            _DB.ViewInventory(_StoreID);
         }
 
         public void AddInventory()

@@ -27,9 +27,34 @@ namespace DataLogic
             _context.SaveChanges();
             return GetUserID(email, password);
         }
-        public void ViewInventory()
+        public void ViewInventory(int locationId)
         {
+            int counter = 1;
 
+            _context.Locations.Join(_context.LocationProductInventories,
+                loc => loc.Id,
+                lpi => lpi.LocationId,
+                (loc, lpi) =>
+                new {
+                    Name = loc.Name,
+                    LocationId = loc.Id,
+                    Address = loc.Address,
+                    ProductId = lpi.Product,
+                    Quantity = lpi.Quantity
+                }
+            ).Where(inv => inv.LocationId.Equals(locationId))
+            .ToList()
+            .ForEach(inv => {
+                if(counter == 1){
+                    Console.WriteLine("Location Name: "+inv.Name);
+                    Console.WriteLine("Location Id: "+inv.LocationId);
+                    Console.WriteLine("Address: "+inv.Address);
+                    Console.WriteLine("");
+                }
+                Console.WriteLine("Product : "+inv.ProductId);
+                Console.WriteLine("Quantity: "+inv.Name);
+                Console.WriteLine();
+            });
         }
 
         public void ViewOrder(int orderId){
@@ -67,6 +92,10 @@ namespace DataLogic
                 }
             );
             _context.SaveChanges();
+        }
+
+        public Location FIndLocation(string name){
+            return _context.Locations.First(loc => loc.Name.Equals(name));
         }
 
         public List<Entities.Location> GetAllLocations()

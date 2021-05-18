@@ -27,7 +27,7 @@ namespace UI.Menus
                     OrderFinder(BL);
                     break;
                 case "2":
-                    new StoreMenu().Start();
+                    new StoreMenu().Start(BL);
                     break;
                 case "3":
                     BL.GetAllStores();

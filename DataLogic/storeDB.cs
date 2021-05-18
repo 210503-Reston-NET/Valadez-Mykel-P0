@@ -59,6 +59,12 @@ namespace DataLogic
             });
         }
 
+        public void TransactionsByLocation(int locationId){
+            _context.Orders.Where(loc => loc.LocationId.Equals(locationId))
+            .ToList()
+            .ForEach(loc => ViewOrder(loc.OrderId));
+        }
+
         public void ViewOrder(int orderId){
             _context.Orders.Join(_context.OrderDetails,
                 ord => ord.OrderId,

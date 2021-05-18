@@ -15,11 +15,6 @@ namespace BuisnessLogic
         {
             _DB = DB;
         }
-        public void LocationHolderFunc(string name)
-        {
-            // find the location and info
-            System.Console.WriteLine(name);
-        }
 
         public void CheckUserCredentials(string email, string password){
             _CustID = _DB.GetUserID(email, password);
@@ -69,6 +64,10 @@ namespace BuisnessLogic
         public void ViewTransactionsByCustomer()
         {
             _DB.GetCustomerOrderAndDetails(_CustID);
+        }
+
+        public void ViewTransactionsByLocation(){
+            _DB.TransactionByLocation(_StoreID);
         }
 
         public void GetAllStores()

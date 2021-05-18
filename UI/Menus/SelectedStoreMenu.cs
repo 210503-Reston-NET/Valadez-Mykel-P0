@@ -23,7 +23,7 @@ namespace UI.Menus
                     AddInventory(BL);
                     break;
                 case "2": 
-                    
+                    ViewTransactions(BL);
                     break;
                 case "3": 
                     new StoreMenu().Start(BL);
@@ -40,6 +40,19 @@ namespace UI.Menus
             Console.WriteLine("Unable To Find Store, Press Any Key to Continue");
             string inpu = Console.ReadLine();
                 
+            Start(BL);
+        }
+
+        public void ViewTransactions(BLogic BL){
+            try{
+                BL.ViewTransactionsByLocation();
+            }catch(Exception e){
+                if(e.Message != null) Console.WriteLine(e.Message);
+                Console.WriteLine("Unable to View Transactions");
+            }
+
+            Console.WriteLine("All Records Available Have Been Displayed, Press any Key to Continue");
+            string con = Console.ReadLine();
             Start(BL);
         }
 

@@ -59,7 +59,7 @@ namespace DataLogic
             });
         }
 
-        public void TransactionByLocation(int locationId){
+        public void TransactionsByLocation(int locationId){
             _context.Orders.Where(loc => loc.LocationId.Equals(locationId))
             .ToList()
             .ForEach(loc => ViewOrder(loc.OrderId));
@@ -107,7 +107,6 @@ namespace DataLogic
         }
 
         public void AddInventory(int productId, int quantity, int locationId){
-            
             IQueryable<Entities.LocationProductInventory> currentStock = _context.LocationProductInventories
             .Where(inv => inv.ProductId.Equals(productId) && inv.LocationId.Equals(locationId));
             

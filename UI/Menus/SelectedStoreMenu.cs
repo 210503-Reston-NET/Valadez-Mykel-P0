@@ -36,29 +36,21 @@ namespace UI.Menus
         }
 
         public void ViewInventory(BLogic BL){
-            try{
-                BL.ViewInventory();
-            }catch(Exception e){
-                if(e.Message != null)Console.WriteLine(e.Message);
-                Console.WriteLine("Unable to Retrieve Data");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("All Available records Retrived");
-            Console.WriteLine("Press any Key to Continue");
-            string hold = Console.ReadLine();
+            BL.ViewInventory();
+            Console.WriteLine("Unable To Find Store, Press Any Key to Continue");
+            string inpu = Console.ReadLine();
                 
             Start(BL);
         }
 
         public void ViewTransactions(BLogic BL){
             try{
-                Console.Clear();
                 BL.ViewTransactionsByLocation();
             }catch(Exception e){
                 if(e.Message != null) Console.WriteLine(e.Message);
                 Console.WriteLine("Unable to View Transactions");
             }
-            Console.WriteLine("");
+
             Console.WriteLine("All Records Available Have Been Displayed, Press any Key to Continue");
             string con = Console.ReadLine();
             Start(BL);
@@ -83,19 +75,19 @@ namespace UI.Menus
             switch (input)
             {
                 case "0":
-                    productId = 1;
+                    productId = 0;
                     repeat = false;
                     break;
                 case "1":
-                    productId = 2;
+                    productId = 1;
                     repeat = false;
                     break;
                 case "2":
-                    productId = 3;
+                    productId = 2;
                     repeat = false;
                     break;
                 case "3":
-                    productId = 4;
+                    productId = 3;
                     repeat = false;
                     break;
                 case "4":
@@ -106,7 +98,7 @@ namespace UI.Menus
                     Console.WriteLine("Invalid Input"); 
                     break;
             }}
-            Console.Clear();
+
             Console.WriteLine("How Much Do You Want to Order?");
             Console.WriteLine("");
             
@@ -119,7 +111,6 @@ namespace UI.Menus
                     Console.WriteLine("Unable to Add Product");
                 }
             }
-            Console.WriteLine("");
             Console.WriteLine("Press any Key to Continue");
             string key = Console.ReadLine();
 

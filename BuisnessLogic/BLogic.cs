@@ -54,7 +54,6 @@ namespace BuisnessLogic
         public void AddInventory(int productId, int quantity)
         {
             _DB.AddInventory(productId, quantity, _StoreID);
-            Console.Clear();
             ViewInventory();
         }
 

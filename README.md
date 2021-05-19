@@ -8,7 +8,7 @@
 For the Repository link click [here](https://github.com/210503-Reston-NET/Valadez-Mykel-P0)
 
 
-For a link to the deployed project click [here](https://valadezmykel.github.io/)
+To find out more about the developer click [here](https://valadezmykel.github.io/)
 
 
 ## Table of Contents

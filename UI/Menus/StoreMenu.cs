@@ -73,8 +73,6 @@ namespace UI.Menus
 
             string input = Console.ReadLine();
             Start(BL);
-
-            // add it to the db then open it in new location menu
         }
     }
 }

@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
-    <ProjectReference Include="..\Tests\Testers.csproj" />
   </ItemGroup>
 
 </Project>

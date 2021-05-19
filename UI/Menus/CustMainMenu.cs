@@ -96,9 +96,10 @@ namespace UI.Menus
                 Console.WriteLine("How Much You Wan?");
                 try{
                     orderAmount = Int32.Parse(Console.ReadLine());
-                    if(orderAmount > available) throw new Exception();
+                    if(orderAmount > available) throw new Exception("You Order Mo Than We Got");
                     break;
-                } catch {
+                } catch (Exception e){
+                    Console.WriteLine(e.Message);
                     Console.WriteLine("Invalid Input");
                 }
 
@@ -117,7 +118,8 @@ namespace UI.Menus
                             BL.MakePurchase(productId, orderAmount);
                             Console.WriteLine("Your Order is Complete");
                             OrderOnline(BL);
-                        } catch{
+                        } catch(Exception e){
+                            if(e.Message != null) Console.WriteLine(e.Message);
                             Console.WriteLine("Order Failed");
                         }
                         break;

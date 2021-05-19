@@ -152,8 +152,6 @@ namespace DataLogic
         }
 
         public void GetCustomerOrderAndDetails(int customerId){
-            int cs = _context.Orders.Count(ord => ord.CustomerId.Equals(customerId));
-            Console.WriteLine(cs);
 
             _context.Orders.Where(ord => ord.CustomerId.Equals(customerId))
             .ToList()
@@ -180,6 +178,7 @@ namespace DataLogic
                     Console.WriteLine("ProductId: "+row.ProductId);
                     Console.WriteLine("Quantity Ordered: "+row.Quantity);
                     Console.WriteLine("Delivered Yet?: "+row.Delivered);
+                    Console.WriteLine("");
                 });
 
 
@@ -199,25 +198,32 @@ namespace DataLogic
                 if(max < requestedQuantity){
                     leftToBeSold = requestedQuantity - max;
                     paritalRequestedQuantity = max;
+                }else{
+                    paritalRequestedQuantity = requestedQuantity;
                 }
 
                 LocationProductInventory invent = invWithProduct.First(inv => inv.Quantity.Equals(max)); 
                 invent.Quantity -= paritalRequestedQuantity;
 
+                _context.SaveChanges();
+
                 CreateOrder(productId, requestedQuantity, customerId, invent.LocationId);
 
             } while (leftToBeSold > 0);
 
-            _context.SaveChanges();
+            
             _context.ChangeTracker.Clear();
             
         }
 
         public void CreateOrder(int productId, int requestedQuantity, int customerId, int locationId){
+            
             _context.Orders.Add(new Entities.Order{
                 LocationId = locationId,
                 CustomerId = customerId
             });
+
+            _context.SaveChanges();
 
             int orderId = _context.Orders.Max(ord => ord.OrderId);
 

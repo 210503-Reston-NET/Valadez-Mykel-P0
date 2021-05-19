@@ -89,7 +89,14 @@ namespace BuisnessLogic
 
         public void MakePurchase(int productId, int orderAmount)
         {
-            _DB.SellItems(productId, orderAmount, _CustID);
+            try{
+                _DB.SellItems(productId, orderAmount, _CustID);
+
+            }catch(Exception e){
+                Console.WriteLine("message: ");
+                Console.WriteLine(e.InnerException.Message);
+                string hold = Console.ReadLine();
+            }
         }
  
     }

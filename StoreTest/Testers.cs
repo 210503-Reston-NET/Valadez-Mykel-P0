@@ -1,6 +1,6 @@
 using DataLogic;
-using DataLogic.Entities;
 using Xunit;
+using Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace StoreTest
         public Testers()
         {
 
-            options = new DbContextOptionsBuilder<DataLogic.Entities.StoreDBContext>()
+            options = new DbContextOptionsBuilder<DataLogic.StoreDBContext>()
             .UseSqlite("Filename=Test.db").Options;
             
             Seed();
@@ -30,16 +30,16 @@ namespace StoreTest
         public void GetLocation()
         {
             //putting in a test context/ connection to our test db
-            using (var context = new DataLogic.Entities.StoreDBContext(options))
+            using (var context = new DataLogic.StoreDBContext(options))
             {
                 //Arrange
                 DataLogic.storeDB _repo = new DataLogic.storeDB(context);
 
                 //Act
-                DataLogic.Entities.Location location = _repo.FIndLocation("Scranton");
+                Location location = _repo.FIndLocation("Scranton");
 
                 //Assert
-                Assert.Equal(1, location.Id);
+                Assert.Equal(1, location.LocationId);
             }
         }
         //When testing operations that change the state of the db (i.e manipulate the data inside the db) 
@@ -49,20 +49,20 @@ namespace StoreTest
         //What operations affect the state of the db? Create, Update, Delete
         private void Seed()
         {
-            using (var context = new DataLogic.Entities.StoreDBContext(options))
+            using (var context = new DataLogic.StoreDBContext(options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 context.Locations.Add(
-                    new DataLogic.Entities.Location{
-                        Id = 1,
+                    new Location{
+                        LocationId = 1,
                         Name = "Scranton",
                         Address = "5354 West Pickle St. Scranton, OH 99849"
                     }
                 
                 );
                 context.Products.Add(
-                    new DataLogic.Entities.Product{
+                    new Product{
                         ProductId = 1,
                         Name = "Dirt",
                         Price = 5.99

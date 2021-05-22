@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Models;
 using DataLogic;
-using DataLogic.Entities;
 
 namespace BuisnessLogic
 {
@@ -21,14 +20,14 @@ namespace BuisnessLogic
         }
 
         public void FindUser(string name){
-            DataLogic.Entities.Customer cust = _DB.FindCustomer(name);
-            Console.WriteLine("Id: "+ cust.Id);
+            Customer cust = _DB.FindCustomer(name);
+            Console.WriteLine("Id: "+ cust.CustomerId);
             Console.WriteLine("Name: "+cust.Name);
             Console.WriteLine("Email: "+cust.Email);
         }
         public void FindUser(int customerId){
-            DataLogic.Entities.Customer cust = _DB.FindCustomer(customerId);
-            Console.WriteLine("Id: "+ cust.Id);
+            Customer cust = _DB.FindCustomer(customerId);
+            Console.WriteLine("Id: "+ cust.CustomerId);
             Console.WriteLine("Name: "+cust.Name);
             Console.WriteLine("Email: "+cust.Email);
         }
@@ -43,7 +42,7 @@ namespace BuisnessLogic
         }
 
         public void FindLocationByName(string name){
-            _StoreID = _DB.FIndLocation(name).Id;
+            _StoreID = _DB.FIndLocation(name).LocationId;
         }
 
         public void ViewInventory()

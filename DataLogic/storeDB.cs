@@ -2,24 +2,24 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-using DataLogic.Entities;
+using Models;
 
 namespace DataLogic
 {
     public class storeDB
     {
-        private Entities.StoreDBContext _context;
-        public storeDB(Entities.StoreDBContext context)
+        private StoreDBContext _context;
+        public storeDB(StoreDBContext context)
         {
             _context = context;
         }
 
         public int GetUserID(string email, string password){
-            return _context.Customers.First(cust => cust.Email.Equals(email) && cust.Password.Equals(password)).Id;
+            return _context.Customers.First(cust => cust.Email.Equals(email) && cust.Password.Equals(password)).CustomerId;
         }
 
         public int AddUser(string name, string email, string password){
-            _context.Customers.Add(new Entities.Customer{
+            _context.Customers.Add(new Customer{
                 Name = name,
                 Email = email,
                 Password = password
@@ -32,14 +32,15 @@ namespace DataLogic
             int counter = 1;
 
             _context.Locations.Join(_context.LocationProductInventories,
-                loc => loc.Id,
+                loc => loc.LocationId,
                 lpi => lpi.LocationId,
                 (loc, lpi) =>
                 new {
                     Name = loc.Name,
-                    LocationId = loc.Id,
+                    LocationId = loc.LocationId,
                     Address = loc.Address,
-                    ProductId = lpi.Product.Name,
+                    // Used to be able to pull the name out here with lpi.Product.Name
+                    ProductId = lpi.ProductId,
                     Quantity = lpi.Quantity
                 }
             ).Where(inv => inv.LocationId.Equals(locationId))
@@ -94,7 +95,7 @@ namespace DataLogic
         public void AddLocation(string name, string address)
         {
             _context.Locations.Add(
-                new Entities.Location{
+                new Location{
                     Name = name,
                     Address = address
                 }
@@ -108,12 +109,12 @@ namespace DataLogic
 
         public void AddInventory(int productId, int quantity, int locationId){
             
-            IQueryable<Entities.LocationProductInventory> currentStock = _context.LocationProductInventories
+            IQueryable<LocationProductInventory> currentStock = _context.LocationProductInventories
             .Where(inv => inv.ProductId.Equals(productId) && inv.LocationId.Equals(locationId));
             
             if(currentStock.Count() == 0){
 
-                _context.LocationProductInventories.Add(new Entities.LocationProductInventory{
+                _context.LocationProductInventories.Add(new LocationProductInventory{
                     LocationId = locationId,
                     ProductId = productId,
                     Quantity = quantity
@@ -125,16 +126,16 @@ namespace DataLogic
             _context.SaveChanges();
         }
 
-        public List<Entities.Location> GetAllLocations()
+        public List<Location> GetAllLocations()
         {
             return _context.Locations.ToList();
         }
 
-        public DataLogic.Entities.Customer FindCustomer(int customerId)
+        public Customer FindCustomer(int customerId)
         {
-            return _context.Customers.FirstOrDefault(cust => cust.Id.Equals(customerId));
+            return _context.Customers.FirstOrDefault(cust => cust.CustomerId.Equals(customerId));
         }
-        public DataLogic.Entities.Customer FindCustomer(string customerName)
+        public Customer FindCustomer(string customerName)
         {
             return _context.Customers.FirstOrDefault(cust => cust.Name.Equals(customerName));
         }
@@ -218,7 +219,7 @@ namespace DataLogic
 
         public void CreateOrder(int productId, int requestedQuantity, int customerId, int locationId){
             
-            _context.Orders.Add(new Entities.Order{
+            _context.Orders.Add(new Order{
                 LocationId = locationId,
                 CustomerId = customerId
             });
@@ -227,7 +228,7 @@ namespace DataLogic
 
             int orderId = _context.Orders.Max(ord => ord.OrderId);
 
-            _context.OrderDetails.Add(new Entities.OrderDetail{
+            _context.OrderDetails.Add(new OrderDetail{
                 OrderId = orderId,
                 ProductId = productId,
                 Quantity = requestedQuantity,

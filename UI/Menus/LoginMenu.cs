@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Models;
-using DataLogic.Entities;
 using DataLogic;
 using BuisnessLogic;
 
